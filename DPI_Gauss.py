@@ -1,8 +1,12 @@
 import pcapy
 import dpkt
+import sys
 import numpy as np
 from scipy.stats import norm
 from scapy.all import *
+
+#Set logging directory
+log_file = open("/logs/anomaly.log", "w")
 
 # Set the network interface to listen on
 interface = "eth0"
@@ -32,3 +36,5 @@ while True:
   # Check if the current packet size is an anomaly
   if packet_size > mu + 3*std:
     print("Anomaly detected: packet size ="), packet_size
+    sys.stdout = log_file
+    log_file.close()
