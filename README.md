@@ -21,7 +21,12 @@ Just random forest classification - made with maple 🍁
 1) Run DPI_Gauss.py
 2) Select Network Interface
 3) Check anomaly.log for abnormal packet sizes
+W.I.P
 
 # Dataset Classification
 1) Run class.py
 2) Use peristed PKL classifier model
+W.I.P
+
+# ELK Stack Integration
+W.I.P
