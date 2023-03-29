@@ -34,5 +34,5 @@ print("Accuracy:", accuracy)
 dump(clf, "data/classifier.pkl")
 
 #save model as parquet table
-table = pa.Table.from_pandas(pd.DataFrame(clf.predict_proba(X_test)))
+table = pq.Table.from_pandas(pd.DataFrame(clf.predict_proba(X_test)))
 pq.write_table(table, 'classifier.parquet')
