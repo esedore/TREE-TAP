@@ -27,7 +27,7 @@ W.I.P
 1) Run class.py
 2) Use peristed PKL classifier model or Apache Parquet model
 
-Currently using the [CIC-IDS-2018](https://www.unb.ca/cic/datasets/ids-2018.html) dataset to train the model
+  Currently using the [CIC-IDS-2018](https://www.unb.ca/cic/datasets/ids-2018.html) dataset to train the model
 
 # ELK Stack Integration
 W.I.P
