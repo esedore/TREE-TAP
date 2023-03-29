@@ -4,8 +4,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from joblib import dump
+import pyarrow.parquet as pq
 
-dataset = pd.read_csv("/Data/NF-CSE-CIC-IDS2018.csv")
+dataset = pd.read_csv("data/NF-CSE-CIC-IDS2018.csv")
 train = dataset
 print(train.head)
 train = train.drop(['Attack'],axis=1)
@@ -30,4 +31,8 @@ accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
 
 # Save the model as a pickle file
-dump(clf, "../Data/classifier.pkl")
+dump(clf, "data/classifier.pkl")
+
+#save model as parquet table
+table = pa.Table.from_pandas(pd.DataFrame(clf.predict_proba(X_test)))
+pq.write_table(table, 'classifier.parquet')
