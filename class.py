@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from joblib import dump
 
-dataset = pd.read_csv("../../Data/NF-CSE-CIC-IDS2018.csv")
+dataset = pd.read_csv("/Data/NF-CSE-CIC-IDS2018.csv")
 train = dataset
 print(train.head)
 train = train.drop(['Attack'],axis=1)
