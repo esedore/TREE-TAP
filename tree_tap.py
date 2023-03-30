@@ -3,9 +3,16 @@ import wmi
 from scapy.all import *
 import struct
 from scipy.stats import norm
+import pyarrow.parquet as pq
+import pandas as pd
+
+#load the parquet model
+model_table = pd.read_table('data/classifier.parquet')
+model = model_table.to_pandas()
 
 #Set logging directory
 with open(r"logs\anomaly.log", "a") as log_file:
+
   # Create a WMI object
   c = wmi.WMI()
 
@@ -32,8 +39,12 @@ with open(r"logs\anomaly.log", "a") as log_file:
       # Get the packet size
       packet_size = len(packet)
 
+      #get the protocol
+      protocol = packet[IP].proto
+
       # Print the packet size
       print(packet_size)
+      print(protocol)
 
       #Gaussian Anomaly Detection of packet size
       mu, std = norm.fit(packet_size)
@@ -41,4 +52,15 @@ with open(r"logs\anomaly.log", "a") as log_file:
         print("Anomaly detected: packet size ="), packet_size
         sys.stdout = log_file
 
-  sniff(iface=selected_adapter.Description, prn=packet_callback)
+      #pandas dataframe from features
+      X = pd.DataFrame({'packet_size':[packet_size],'protocol':[protocol]})
+
+      #Guessing time
+      y_pred = model.predict(X)
+
+      if y_pred == 1:
+        print("Anomalous traffic detected! :(")
+        sys.stdout = log_file
+      else:
+        print("Benign :)")
+  sniff(iface=selected_adapter.Description, prn=packet_callback, filter='tcp')
