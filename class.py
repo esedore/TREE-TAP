@@ -5,6 +5,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from joblib import dump
 import pyarrow.parquet as pq
+from pyarrow.parquet import table
 
 dataset = pd.read_csv("data/NF-CSE-CIC-IDS2018.csv")
 train = dataset
