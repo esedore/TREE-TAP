@@ -18,7 +18,7 @@ Just random forest classification - made with maple 🍁
                                                                          `
 
 # Live Capture Analysis (Windows Only)
-1) Run DPI_Gauss.py
+1) Run tree_tap.py
 2) Select Network Interface
 3) Check anomaly.log for abnormal packet sizes
 W.I.P
