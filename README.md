@@ -30,4 +30,7 @@ W.I.P
   Currently using the [CIC-IDS-2018](https://www.unb.ca/cic/datasets/ids-2018.html) dataset to train the model
 
 # ELK Stack Integration
-W.I.P
+1) Specify ELK connection
+  i) either localhost
+  ii) or cloud deployment
+2)run elk_shipping.py to ship anomaly.log files
