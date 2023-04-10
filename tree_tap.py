@@ -5,11 +5,11 @@ import struct
 from scipy.stats import norm
 import pyarrow.parquet as pq
 import pandas as pd
-import pickle4 as pickle
 
 #load the parquet model
-model_table = pd.read_table('data/classifier.parquet')
-model = model_table.to_pandas()
+tree_file = pq.ParquetDataset('data/tree_table.parquet')
+tree_table = tree_file.read()
+tree_df = tree_table.to_pandas()
 
 #Set logging directory
 with open(r"logs\anomaly.log", "a") as log_file:
@@ -57,7 +57,7 @@ with open(r"logs\anomaly.log", "a") as log_file:
       X = pd.DataFrame({'packet_size':[packet_size],'protocol':[protocol]})
 
       #Guessing time
-      y_pred = model.predict(X)
+      y_pred = tree_df.predict(X)
 
       if y_pred == 1:
         print("Anomalous traffic detected! :(")
