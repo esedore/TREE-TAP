@@ -5,6 +5,7 @@ import struct
 from scipy.stats import norm
 import pyarrow.parquet as pq
 import pandas as pd
+import pickle4 as pickle
 
 #load the parquet model
 model_table = pd.read_table('data/classifier.parquet')

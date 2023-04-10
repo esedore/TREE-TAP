@@ -3,8 +3,8 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+import pyarrow as pa
 import pyarrow.parquet as pq
-from pyarrow.parquet import table
 
 dataset = pd.read_csv("data/NF-CSE-CIC-IDS2018.csv")
 train = dataset
@@ -30,6 +30,7 @@ y_pred = clf.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
 
-#save model as parquet table
-table = pq.Table.from_pandas(pd.DataFrame(clf.predict_proba(X_test)))
-pq.write_table(table, 'classifier.parquet')
+#Write model to df
+df = pd.DataFrame({'feature_importances_':clf.feature_importances_})
+#write model to parquet
+pq.write_table(pa.Table.from_pandas(df),'data/tree_table.parquet')
